@@ -3,9 +3,11 @@ FROM python:3.6-slim-buster
 RUN apt update && \
     apt install -y python3-dev gcc
 
-WORKDIR app 
-# Install pytorch cpu version
-RUN pip install torch_nightly -f https://download.pytorch.org/whl/nightly/cpu/torch_nightly.html
+# Upgrade pip to the latest version
+RUN python -m pip install --upgrade pip
+
+# Install PyTorch (stable version)
+RUN pip install torch torchvision torchaudio
 
 ADD requirements.txt .
 RUN pip install -r requirements.txt
